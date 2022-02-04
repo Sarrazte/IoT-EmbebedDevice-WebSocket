@@ -6,7 +6,12 @@ client.onConnectionLost = onConnectionLost;
 client.onMessageArrived = onMessageArrived;
 
 // connect the client
-client.connect({ onSuccess: onConnect, useSSL: true });
+client.connect({
+	onSuccess: onConnect, 
+	userName : "sarrazate",
+	password : "Last990702",
+    useSSL: true
+});
 
 Velocidad = 0;
 Long = 0;

@@ -50,7 +50,9 @@ Para la implementació de JavaScript para el suscriptor en el websocket hay que 
 ```
 client.connect({
 	onSuccess: onConnect, 
-	useSSL: true
+	userName : "Your_Username",
+	password : "Your_Password",
+    useSSL: true
 });
 ```
 ## Graficas
