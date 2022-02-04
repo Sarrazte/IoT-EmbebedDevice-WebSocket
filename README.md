@@ -44,6 +44,15 @@ Es necesario mencionar que el broker de HiveMQ sólo permite conexiones seguras 
 
 Para el index web unicamente hacemos uso de las apis de JavaScript para MQTT haciendo una implementación de su script que es encuentra en https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js su implementación se encuentra en el código iot-mqtt.js 
 
+
+###### NOTA:
+Para la implementació de JavaScript para el suscriptor en el websocket hay que tomar muy en cuenta y verificar que nuestro código haga la conexión TLS, de lo contrario no lograremos suscribirnos, aquí un ejemplo de como lograr la conexión segura con TLS:
+```
+client.connect({
+	onSuccess: onConnect, 
+	useSSL: true
+});
+```
 ## Graficas
 
 Para la gráficas se usa la libreria de AMCHARTS implementada con JavaScript, podemos encontrar la gráfica en https://www.amcharts.com/demos/animated-gauge/. Puedes acceder a la documentación de estos gráficos en https://www.amcharts.com/docs
