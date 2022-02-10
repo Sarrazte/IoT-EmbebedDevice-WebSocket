@@ -13,13 +13,21 @@
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <!-- MAPS -->
+    <script src="https://www.gstatic.com/external_hosted/jquery2.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=drawing,places&key=AIzaSyDqUlHzADhlgmGodUiDGlvSc0ZlPCkivUM"></script>
 </head>
 <body>
     <div>
         <h1>VELOCIDADES</h1>
     </div>
     <div id="chartdiv"></div>
+    <div id="map"></div>
+    <div id="bar">
+      <p><a id="clear" href="#">Click here</a> to clear map.</p>
+    </div>
     <script src="js/iot-mqtt.js"></script>
     <script src="js/graficas.js"></script>
+    <script src="js/maps.js"></script>
 </body>
 </html>
