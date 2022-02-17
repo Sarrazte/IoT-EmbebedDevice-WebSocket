@@ -13,22 +13,21 @@ function initialize() {
   };
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-  // Adds a Places search box. Searching for a place will center the map on that
-//  // location.
-//  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
-//      document.getElementById('bar'));
-//  var autocomplete = new google.maps.places.Autocomplete(
-//      document.getElementById('autoc'));
-//  autocomplete.bindTo('bounds', map);
-//  autocomplete.addListener('place_changed', function() {
-//    var place = autocomplete.getPlace();
-//    if (place.geometry.viewport) {
-//      map.fitBounds(place.geometry.viewport);
-//    } else {
-//      map.setCenter(place.geometry.location);
-//      map.setZoom(17);
-//    }
-//  });
+ // Adds a Places search box. Searching for a place will center the map on that location.
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+      document.getElementById('bar'));
+  var autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autoc'));
+  autocomplete.bindTo('bounds', map);
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+    }
+  });
 
   // Enables the polyline drawing control. Click on the map to start drawing a
   // polyline. Each click will add a new vertice. Double-click to stop drawing.
