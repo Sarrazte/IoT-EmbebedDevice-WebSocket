@@ -67,6 +67,7 @@ while i > 0:
     lat = lat - movimiento
 # a single publish, this can also be done in loops, etc.
     client.publish("IoT/Velocidad", payload=velocidades, qos=1)
+    time.sleep(1)
     client.publish("IoT/Long", payload=long, qos=1)
     client.publish("IoT/Lat", payload=lat, qos=1)
     time.sleep(5)

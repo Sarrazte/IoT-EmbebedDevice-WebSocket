@@ -13,9 +13,11 @@ client.connect({
     useSSL: true
 });
 
-Velocidad = 0;
-Long = 0;
-Lat = 0;
+var Velocidad = 0;
+var LongitudArray = [];
+var LatitudArray = [];
+var longi = 0;
+var lati = 0;
 
 
 // called when the client connects
@@ -36,14 +38,18 @@ function onConnectionLost(responseObject) {
 
 // called when a message arrives
 function onMessageArrived(message) {
-    console.log(message.destinationName + ":" + message.payloadString);
     if (message.destinationName == 'IoT/Velocidad') {
         Velocidad = parseInt(message.payloadString);
     }
     if (message.destinationName == 'IoT/Long') {
-        Long = parseFloat(message.payloadString);
+        LongitudArray.push(message.payloadString);
+        longi = message.payloadString;
     }
     if (message.destinationName == 'IoT/Lat') {
-        Lat = parseFloat(message.payloadString);
+        LatitudArray.push(message.payloadString);
+        lati = message.payloadString;
     }
+
+    //Llama la función para crear nuevo marcador de ubicación en nuevas coordenadas del publicador
+    nuevoMarcador(lati,longi);
 }
