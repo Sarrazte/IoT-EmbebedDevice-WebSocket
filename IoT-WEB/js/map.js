@@ -1,4 +1,4 @@
-var apiKey = 'AIzaSyDqUlHzADhlgmGodUiDGlvSc0ZlPCkivUM';
+var apiKey = 'YOUR-API-KEY';
 var map;
 var marker;
 
