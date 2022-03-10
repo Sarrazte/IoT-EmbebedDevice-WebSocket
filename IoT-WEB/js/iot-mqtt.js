@@ -18,6 +18,7 @@ var LongitudArray = [];
 var LatitudArray = [];
 var longi = 0;
 var lati = 0;
+var coordenadas;
 
 
 // called when the client connects
@@ -27,6 +28,7 @@ function onConnect() {
     client.subscribe("IoT/Velocidad");
     client.subscribe("IoT/Long");
     client.subscribe("IoT/Lat");
+    client.subscribe("IoT/Coord");
 }
 
 // called when the client loses its connection
@@ -40,16 +42,14 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
     if (message.destinationName == 'IoT/Velocidad') {
         Velocidad = parseInt(message.payloadString);
-    }
-    if (message.destinationName == 'IoT/Long') {
+    }else if (message.destinationName == 'IoT/Long') {
         LongitudArray.push(message.payloadString);
         longi = message.payloadString;
-    }
-    if (message.destinationName == 'IoT/Lat') {
+    }else if (message.destinationName == 'IoT/Lat') {
         LatitudArray.push(message.payloadString);
         lati = message.payloadString;
+    }else{
+        coordenadas = message.payloadString;
+        nuevoMarcador(coordenadas);
     }
-
-    //Llama la función para crear nuevo marcador de ubicación en nuevas coordenadas del publicador
-    nuevoMarcador(lati,longi);
 }

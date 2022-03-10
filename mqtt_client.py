@@ -18,12 +18,14 @@ import paho.mqtt.client as paho
 from paho import mqtt
 import random
 import time
+import json
 
 velocidades = 0
-long = 20.683226
-lat = -103.337436
+long = -103.337436
+latid = 20.683226
 movimiento = 0.000700
 i = 1
+
 
 # setting callbacks for different events to see if it works, print the message etc.
 def on_connect(client, userdata, flags, rc, properties=None):
@@ -64,13 +66,17 @@ client.on_publish = on_publish
 while i > 0:
     velocidades = random.randrange(0,200,1)
     long = long - movimiento
-    lat = lat - movimiento
+    latid = latid + movimiento
+    coordenadasNuevas = {'lat':latid, 'lng':long}
+    coordenadasToJSON = json.dumps(coordenadasNuevas)
+    print(coordenadasToJSON)
 # a single publish, this can also be done in loops, etc.
     client.publish("IoT/Velocidad", payload=velocidades, qos=1)
     time.sleep(1)
-    client.publish("IoT/Long", payload=long, qos=1)
-    client.publish("IoT/Lat", payload=lat, qos=1)
-    time.sleep(5)
+    #client.publish("IoT/Long", payload=long, qos=1)
+    #client.publish("IoT/Lat", payload=latid, qos=1)
+    client.publish("IoT/Coord", payload=coordenadasToJSON, qos=1)
+    time.sleep(3)
     i += 1
 
 
