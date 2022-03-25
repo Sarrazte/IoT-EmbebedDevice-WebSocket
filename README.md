@@ -81,9 +81,9 @@ Para comenzar a utilizar la api de Google Maps principalmente es necesario crear
 
 Para este proyecto de utilizó la documentación de:
 
-*Maps JavaScript API
- -https://developers.google.com/maps/documentation/javascript
-*Roads API 
- -https://developers.google.com/maps/documentation/roads
+* Maps JavaScript API
+ - https://developers.google.com/maps/documentation/javascript
+* Roads API 
+ - https://developers.google.com/maps/documentation/roads
 
 Puedes leer la documentación para agregar mayores funcionalidades a tu mapa.
