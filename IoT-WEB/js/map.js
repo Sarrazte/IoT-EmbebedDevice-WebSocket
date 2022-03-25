@@ -1,12 +1,12 @@
-var apiKey = 'YOUR-API-KEY';
+var apiKey = 'AIzaSyDqUlHzADhlgmGodUiDGlvSc0ZlPCkivUM';
 var map;
 var marker;
+const pos = { lat: 20.683226, lng: -103.337436, }; //Coordenada inicial
+var viejaCoordenada = [pos]; //Inicializa el arreglo con la primer coordenada de todas
+var newCoordenada; //Variable que manejará nuestras nuevas coordenadas
 
-// Initialize and add the map
+// Inicializa y agrega el mapa
 function initMap() {
-
-  //Ubicación inicial del mapa
-  const pos = { lat: 20.683226, lng: -103.337436, };
 
   // Mapa centrado a la ubicacion inicial
   map = new google.maps.Map(document.getElementById("map"), {
@@ -24,21 +24,20 @@ function initMap() {
 
 //Función llamada desde el suscriptor MQTT JavaScript para dibujar marcadores en nuevas ubicaciones
 function nuevoMarcador(coordenadas){
-  var newCoordenada = JSON.parse(coordenadas);
+  newCoordenada = JSON.parse(coordenadas);
   
-  console.log(newCoordenada);
-  //console.log(latitud);
-  //console.log(longitud);
+  //console.log(newCoordenada);
 
   var myLatlng = new google.maps.LatLng(newCoordenada);
 
   map.panTo(myLatlng);
   
-  var marker = new google.maps.Marker({
+  //DESCOMENTAR EN CASO DE QUERER QUE SE MUESTREN MARCADORES EN CADA NUEVA POSICIÓN
+  /*var marker = new google.maps.Marker({
     position: myLatlng,
     draggable: false,
     map:map,
-  });
+  });*/
 
   var options = {
     map:map,
@@ -46,5 +45,35 @@ function nuevoMarcador(coordenadas){
   }
 
   map.setCenter(options.position);
+  dibujarLineas();  
 }
 
+function dibujarLineas(){
+  
+  var oldCoord = viejaCoordenada.pop();
+  //Se imprimen las coordenadas utilizadas como puntos de inflexión para las polilíneas 
+  console.log("La nueva coordenada es:");
+  console.log(newCoordenada);
+  console.log("La vieja coordenada es:");
+  console.log(oldCoord);
+
+  //Creamos los dos puntos de inflexión de las líeas
+  const puntos = [
+    newCoordenada,
+    oldCoord,
+  ];
+
+  //Se dibuja la líea entre las dos ultimas coordenadas
+  const nuevaLinea = new google.maps.Polyline({
+    path: puntos,
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  });
+
+  nuevaLinea.setMap(map)
+
+  //Se agrega la nueva coordenada al arreglo "VIEJACOORDENADA", de este modo siempre tendremos actualizada nuestro punto de inicio
+  //de la polilínea
+  viejaCoordenada.push(newCoordenada);
+}
