@@ -61,9 +61,29 @@ Para la gráficas se usa la libreria de AMCHARTS implementada con JavaScript, po
 
 ## Pubicar con BeagleBone Black
 
-Para publicar desde nuestra BeagleBone Black basta con ejecutar nuestro código Python desde la misma.
+Para publicar desde nuestra BeagleBone Black es necesario instalar la libreria PahoMQTT de eclipse, la podemos encuntrar en el siguiente link:
+https://github.com/eclipse/paho.mqtt.python
+
+Será imposible instalar la libreria con el manejador de paquetes de python desde nuestra BeagleBone, para solucionar esto deberás descargar el repositorio de la libreria directamente desde el link anterior. Una vez tengas el repositorio en tu dispositivo de embebidos, basta con hacer:
+
+```
+cd paho.mqtt.python
+python setup.py install
+```
 
 Para ejecutar código de python basta con escribir en la terminar algo como esto:
 ```
 C:\Users\Barto\Documents\LMSGI Barto\Python\pruebas>python prueba.py
 ```
+## Google Maps API
+
+Para comenzar a utilizar la api de Google Maps principalmente es necesario crear una cuenta de desarrollador en google y con esto conseguir nuestra "API KEY" que nos permitirá hacer uso de la API.
+
+Para este proyecto de utilizó la documentación de:
+
+*Maps JavaScript API
+ -https://developers.google.com/maps/documentation/javascript
+*Roads API 
+ -https://developers.google.com/maps/documentation/roads
+
+Puedes leer la documentación para agregar mayores funcionalidades a tu mapa.
