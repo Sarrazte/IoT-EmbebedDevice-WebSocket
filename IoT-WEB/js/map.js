@@ -4,6 +4,7 @@ var marker;
 const pos = { lat: 20.683226, lng: -103.337436, }; //Coordenada inicial
 var viejaCoordenada = [pos]; //Inicializa el arreglo con la primer coordenada de todas
 var newCoordenada; //Variable que manejará nuestras nuevas coordenadas
+const image = "https://img.icons8.com/ios-filled/50/000000/truck.png"; //Icono del Marcador
 
 // Inicializa y agrega el mapa
 function initMap() {
@@ -15,15 +16,21 @@ function initMap() {
   });
 
   // Agrega marcador a posición inicial
-  const marker = new google.maps.Marker({
+  marker = new google.maps.Marker({
     position: pos,
     map: map,
-    animation: google.maps.Animation.Drop,
+    icon:image,
   });
 }
 
 //Función llamada desde el suscriptor MQTT JavaScript para dibujar marcadores en nuevas ubicaciones
 function nuevoMarcador(coordenadas){
+  //Elimina el marcador anterior
+  if (marker != null) {
+    marker.setMap(null);
+  }
+
+
   newCoordenada = JSON.parse(coordenadas);
   
   //console.log(newCoordenada);
@@ -31,13 +38,14 @@ function nuevoMarcador(coordenadas){
   var myLatlng = new google.maps.LatLng(newCoordenada);
 
   map.panTo(myLatlng);
-  
+
   //DESCOMENTAR EN CASO DE QUERER QUE SE MUESTREN MARCADORES EN CADA NUEVA POSICIÓN
-  /*var marker = new google.maps.Marker({
+  marker = new google.maps.Marker({
     position: myLatlng,
     draggable: false,
     map:map,
-  });*/
+    icon:image,
+  });
 
   var options = {
     map:map,
@@ -45,11 +53,11 @@ function nuevoMarcador(coordenadas){
   }
 
   map.setCenter(options.position);
-  dibujarLineas();  
+  dibujarLineas(); 
 }
 
 function dibujarLineas(){
-  
+
   var oldCoord = viejaCoordenada.pop();
   //Se imprimen las coordenadas utilizadas como puntos de inflexión para las polilíneas 
   console.log("La nueva coordenada es:");
