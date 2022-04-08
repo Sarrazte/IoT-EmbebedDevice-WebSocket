@@ -53,3 +53,23 @@ function onMessageArrived(message) {
         nuevoMarcador(coordenadas);
     }
 }
+
+//Control de Switch Publicador 
+const toggle = document.querySelector('.toggle input')
+
+toggle.addEventListener('click', () => {
+    const onOff = toggle.parentNode.querySelector('.onoff')
+    onOff.textContent = toggle.checked ? 'ON' : 'OFF'
+
+    // Publicación de mensaje con switch "ENCENDER LUZ"
+    var luz = onOff.textContent;
+    console.log(luz);
+
+    var message = new Paho.MQTT.Message(luz);
+    message.destinationName = "IoT/Led";
+    message.qos = 0;
+
+    console.log(message);
+
+    client.send(message);
+})

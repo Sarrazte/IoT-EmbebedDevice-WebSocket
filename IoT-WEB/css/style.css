@@ -3,3 +3,61 @@
     height: 350px;
     padding-left: 300px;
 }
+
+/*INICIO DE ESTILOS PARA SWITCH*/
+.toggle {
+    position: relative;
+  }
+  
+  .toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle .onoff {
+    color: #000000;
+    font-size: 3em;
+    text-align: left;
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .slider {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    background-color: #333;
+    transition: 0.4s;
+    width: 200px;
+    height: 120px;
+  }
+  
+  .slider:before {
+    content: "";
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    background-color: #fff;
+    transition: 0.4s;
+    top: 10px;
+    left: 10px;
+  }
+  
+  input:checked + .slider {
+    background-color: #fd5d00;
+    box-shadow: 0 0 12px #fd5d00;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(80px);
+  }
+  
+  .slider.round {
+    border-radius: 20px;
+  }
+  .slider.round::before {
+    border-radius: 20px;
+  }
+  /*FIN DE ESTILOS PARA SWITCH*/
