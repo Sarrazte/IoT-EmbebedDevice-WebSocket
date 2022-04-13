@@ -1,12 +1,19 @@
 #chartdiv {
     width: 50%;
     height: 350px;
-    padding-left: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+#velocidades, #led{
+  text-align: center;
 }
 
 /*INICIO DE ESTILOS PARA SWITCH*/
 .toggle {
-    position: relative;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
   }
   
   .toggle input {
@@ -18,7 +25,7 @@
   
   .toggle .onoff {
     color: #000000;
-    font-size: 3em;
+    font-size: 2em;
     text-align: left;
     display: block;
     font-family: Arial, Helvetica, sans-serif;
@@ -46,8 +53,8 @@
   }
   
   input:checked + .slider {
-    background-color: #fd5d00;
-    box-shadow: 0 0 12px #fd5d00;
+    background-color: #00fddf;
+    box-shadow: 0 0 12px #00fddf;
   }
   
   input:checked + .slider:before {

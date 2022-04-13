@@ -1,4 +1,4 @@
-html, body {
+html, body{
     height: 100%;
     margin: 0px;
     padding: 0px;
@@ -6,7 +6,7 @@ html, body {
 
   #map{
     height: 50%;
-    width: 50%;
+    width: 100%;
   }
 
   #panel {
@@ -31,4 +31,8 @@ html, body {
   #autoc {
     width: 100%;
     box-sizing: border-box;
+  }
+
+  #ubicaciones{
+    text-align: center;
   }
