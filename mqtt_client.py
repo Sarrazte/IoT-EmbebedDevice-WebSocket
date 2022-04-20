@@ -5,18 +5,21 @@ import random
 import time
 import json
 import threading
-import Adafruit_BBIO.GPIO as GPIO
+#import Adafruit_BBIO.GPIO as GPIO
 
 #Indicamos el PIN de salida para el LED
 outPin  = "P9_12"
 #Definimos el PIN "P9_12" como salida
-GPIO.setup(outPin, GPIO.OUT)
+#GPIO.setup(outPin, GPIO.OUT)
 
 #Inicializamos valores para la simulacion de los sensores
 velocidades = 0
+gasolina = 135
 long = -103.337436 
 latid = 20.683226
-movimiento = 0.000700 
+movimiento_arriba = -0.000700
+movimiento_derecha = 0.001250
+
 
 #Funcion que se ejecuta cuando se logra la conexion
 def on_connect(client, userdata, flags, rc, properties=None): #Funcion ejecutada por paho cuando se conecte al Broker
@@ -51,29 +54,30 @@ def conexion():
 hiloConexion = threading.Thread(name="hiloConexion", target=conexion)
 hiloConexion.start()
 
-def publicarDatos(coordenadasToJSON, velocidades):
+def publicarDatos(coordenadasToJSON, velocidades, gasolina):
     #Publicamos los mensajes
     client.publish("IoT/Velocidad", payload=velocidades, qos=1)
     client.publish("IoT/Coord", payload=coordenadasToJSON, qos=1)
+    client.publish("IoT/Gasolina", payload=gasolina, qos=1)
     print(coordenadasToJSON)
     time.sleep(3)
 
 def encenderLed():
-    GPIO.output(outPin, GPIO.HIGH)
+    #GPIO.output(outPin, GPIO.HIGH)
     print("LED ENCENDIDO")
 
 def apagarLed():
-    GPIO.output(outPin, GPIO.LOW)
-    GPIO.cleanup()
+    #GPIO.output(outPin, GPIO.LOW)
+    #GPIO.cleanup()
     print("LED APAGADO")
 
 while True:
     velocidades = random.randrange(0,200,1)
-    long = long - movimiento
-    latid = latid + movimiento
+    long = long - movimiento_arriba
+    latid = latid + movimiento_derecha
     coordenadasNuevas = {'lat':latid, 'lng':long}
     coordenadasToJSON = json.dumps(coordenadasNuevas)
-    publicarDatos(coordenadasToJSON, velocidades)
+    publicarDatos(coordenadasToJSON, velocidades, gasolina)
     #Creamos hilo manejador de publicaciones
     #hiloPublicador = threading.Thread(name="hiloPublicador", target=publicarDatos, args=(coordenadasToJSON, velocidades))
     #hiloPublicador.start()
