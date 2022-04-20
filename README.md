@@ -127,6 +127,10 @@ En este proyecto la GPIO se utiliza para poder encender el led enviando el mensa
 
 Puedes encontrar una guía para la instalación de la libreria aquí: https://learn.adafruit.com/setting-up-io-python-library-on-beaglebone-black/installation
 
+#### Diagrama de Pines BeagleBone Black
+
+<img src="../IoT-EmbebedDevice-WebSocket/IoT-WEB/Imagenes/beaglebone-black-pinout.jpg" alt="Pinout"/>
+
 #### Adafruit con Python 
 
 Para las pruebas hemos comentado las líneas correspondientes al manejo de GPIO en el archivo mqtt_client.py ya que la libreria no se instaló en la computadora en donde se realizó el código y son reconocidas como errores por el interprete.
@@ -141,6 +145,7 @@ Definimos el o los pines de la beaglebone a utilizar:
 
 ```
 outPin  = "P9_12"
+GPIO.setup(outPin, GPIO.OUT)
 ```
 
 Creamos las funciones para ecender o apagar el pin correspondiente de la GPIO

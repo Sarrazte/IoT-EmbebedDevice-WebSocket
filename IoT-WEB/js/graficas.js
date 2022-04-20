@@ -22,7 +22,7 @@ am5.ready(function() {
       })
     );
     
-    chart.getNumberFormatter().set("numberFormat", "#");
+    chart.getNumberFormatter().set("numberFormat", "# Km/h");
     
     // Create axis and its renderer
     // https://www.amcharts.com/docs/v5/charts/radar-chart/gauge-charts/#Axes
@@ -189,7 +189,7 @@ am5.ready(function() {
     })
   );
   
-  chart.getNumberFormatter().set("numberFormat", "#");
+  chart.getNumberFormatter().set("numberFormat", "# lts");
   
   // Create axis and its renderer
   // https://www.amcharts.com/docs/v5/charts/radar-chart/gauge-charts/#Axes
@@ -207,7 +207,7 @@ am5.ready(function() {
     am5xy.ValueAxis.new(root, {
       maxDeviation: 0,
       min: 0,
-      max: 200,
+      max: 300,
       strictMinMax: true,
       renderer: axisRenderer
     })
@@ -296,7 +296,7 @@ am5.ready(function() {
     xAxis.makeDataItem({
       above: true,
       value: 0,
-      endValue: 200
+      endValue: 300
     })
   );
   
@@ -313,7 +313,7 @@ am5.ready(function() {
     xAxis.makeDataItem({
       above: true,
       value: 50,
-      endValue: 200
+      endValue: 300
     })
   );
   
