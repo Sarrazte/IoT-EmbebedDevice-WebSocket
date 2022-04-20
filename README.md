@@ -129,7 +129,7 @@ Puedes encontrar una guía para la instalación de la libreria aquí: https://le
 
 #### Diagrama de Pines BeagleBone Black
 
-<img src="../IoT-EmbebedDevice-WebSocket/IoT-WEB/Imagenes/beaglebone-black-pinout.jpg" alt="Pinout"/>
+<img src="IoT-WEB/Imagenes/beaglebone-black-pinout.jpg" alt="Pinout"/>
 
 #### Adafruit con Python 
 
