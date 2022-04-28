@@ -14,7 +14,7 @@
     height: 350px;
 }
 
-#velocidades, #led, #gasolina{
+#velocidades, #led, #gasolina, temperatura{
   text-align: center;
 }
 
