@@ -5,15 +5,15 @@ import random
 import time
 import json
 import threading
-#import Adafruit_BBIO.GPIO as GPIO // Descomentar para ejecutar en BBB
-#import Adafruit_BBIO.ADC as ADC // Descomentar para ejecutar en BBB
+import Adafruit_BBIO.GPIO as GPIO # Descomentar para ejecutar en BBB
+import Adafruit_BBIO.ADC as ADC # Descomentar para ejecutar en BBB
 
 #Indicamos el PIN de salida para el LED
-#outPin  = "P9_12" // Descomentar para ejecutar en BBB
+outPin  = "P9_12" # Descomentar para ejecutar en BBB
 #Definimos el PIN "P9_12" como salida
-#GPIO.setup(outPin, GPIO.OUT) // Descomentar para ejecutar en BBB
+GPIO.setup(outPin, GPIO.OUT) # Descomentar para ejecutar en BBB
 #Llamamos setup para iniciar ADC
-#ADC.setup() // Descomentar para ejecutar en BBB
+ADC.setup() # Descomentar para ejecutar en BBB
 
 #Inicializamos valores para la simulacion de los sensores
 velocidades = 0
@@ -68,20 +68,20 @@ def publicarDatos(coordenadasToJSON, velocidades, gasolina, temperatura):
     time.sleep(3)
 
 def encenderLed():
-    #GPIO.output(outPin, GPIO.HIGH) // Descomentar para ejecutar en BBB
+    GPIO.output(outPin, GPIO.HIGH) # Descomentar para ejecutar en BBB
     print("LED ENCENDIDO")
 
 def apagarLed():
-    #GPIO.output(outPin, GPIO.LOW) // Descomentar para ejecutar en BBB
-    #GPIO.cleanup() // Descomentar para ejecutar en BBB
+    GPIO.output(outPin, GPIO.LOW) # Descomentar para ejecutar en BBB
+    GPIO.cleanup() # Descomentar para ejecutar en BBB
     print("LED APAGADO")
 
 def lecturaTemperatura():
-    #reading = ADC.read('P9_40') // Descomentar para ejecutar en BBB
-    #millivolts = reading * 1800 // Descomentar para ejecutar en BBB
-    #temp_c = millivolts / 10 // Descomentar para ejecutar en BBB
-    #print('Temperatura: '+str(temp_c)+' °C') // Descomentar para ejecutar en BBB
-    #return temp_c // Descomentar para ejecutar en BBB
+    reading = ADC.read('P9_40') # Descomentar para ejecutar en BBB
+    millivolts = reading * 1800 # Descomentar para ejecutar en BBB
+    temp_c = millivolts / 10 # Descomentar para ejecutar en BBB
+    print('Temperatura: '+str(temp_c)+' °C') # Descomentar para ejecutar en BBB
+    return temp_c # Descomentar para ejecutar en BBB
 
 while True:
     velocidades = random.randrange(0,200,1)
@@ -91,8 +91,8 @@ while True:
     coordenadasToJSON = json.dumps(coordenadasNuevas)
     temperatura = lecturaTemperatura() 
     publicarDatos(coordenadasToJSON, velocidades, gasolina, temperatura)
-    #Creamos hilo manejador de publicaciones
-    #hiloPublicador = threading.Thread(name="hiloPublicador", target=publicarDatos, args=(coordenadasToJSON, velocidades))
-    #hiloPublicador.start()
-    #hiloPublicador.join()
+    ##Creamos hilo manejador de publicaciones
+    hiloPublicador = threading.Thread(name="hiloPublicador", target=publicarDatos, args=(coordenadasToJSON, velocidades))
+    hiloPublicador.start()
+    hiloPublicador.join()
     client.loop()
