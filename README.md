@@ -34,9 +34,9 @@ Cree una nueva carpeta de proyecto llamada python-paho-hivemq-cloud y abra una c
 
 ###### Paho python se puede instalar a través del administrador de paquetes pip ejecutando el siguiente comando:
 ```
-pip instalar paho-mqtt
+pip install paho-mqtt
 o para Python 3
-pip3 instalar paho-mqtt
+pip3 install paho-mqtt
 ```
 ## WebSocket-JavaScript
 
@@ -44,6 +44,27 @@ Es necesario mencionar que el broker de HiveMQ sólo permite conexiones seguras 
 
 Para el index web unicamente hacemos uso de las apis de JavaScript para MQTT haciendo una implementación de su script que es encuentra en https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js su implementación se encuentra en el código iot-mqtt.js 
 
+#### Publicación desde WebSocket
+
+Para publicar hacia nuestro Broker MQTT desde nuestro WebSocket basta con agregar las siguientes líeas de código dentro de nuestro scrip de JS con el que hacemos el manejo de MQTT
+
+```
+var message = new Paho.MQTT.Message(payload); //Declara un objeto de tipo mensaje que contiene el mensaje a eviar
+    message.destinationName = "Your/Topic"; //Define el Topic sore el cual se hará la publicación del mensaje
+    message.qos = 0; //Define la calidad del mensaje (1, 2 o 3)
+```
+
+#### Suscripcion al Broker Python
+
+Para la suscripcion es un poco mas complicado, debido a que en este proyecto manejamos publicacion y suscripcion dentro del mismo código nos encontramos con el problema de que, cuando nos suscribimos a cierto topic nuestro programa estará escuchando y no podrá relizar ninguna otra tarea hasta que la suscripcion termine, es decir, mientras escuchamos al broker no podremos enviarle mensajes y de la misma forma al contrario.
+
+Para solucionar esto, es necesario hacer el manejo de subprocesos (HILOS). Para ello debemos importar la las dependencas que python nos proporciona para poder realizar esta tarea.
+
+```
+import threading
+```
+
+Para comprender mejor el funcionamiento recomendamos uscar documentación sobre "Threadign", puedes encontrar algo en el siguiente link: https://realpython.com/intro-to-python-threading/
 
 ###### NOTA:
 Para la implementació de JavaScript para el suscriptor en el websocket hay que tomar muy en cuenta y verificar que nuestro código haga la conexión TLS, de lo contrario no lograremos suscribirnos, aquí un ejemplo de como lograr la conexión segura con TLS:
@@ -87,3 +108,53 @@ Para este proyecto de utilizó la documentación de:
  - https://developers.google.com/maps/documentation/roads
 
 Puedes leer la documentación para agregar mayores funcionalidades a tu mapa.
+
+## Integrando Bootstrap
+
+En este proyecto bootstrap está incluido como herramienta para el desarrollo de front-end en nuestro WebSocket.
+
+Para hacer uso de esta herramienta existen diferentes maneras de implementarlo en nuestro proyecto, las cuales puedes consultar en: 	https://getbootstrap.com/docs/5.1/getting-started/download/ en donde encontraras la documentación pertinente para su uso.
+
+En este caso y para este proyeccto utilizamos nmp como medio de implementación, basta con ejecutar el siguiente comando dentro de la carpeta de nuestro proyecto.
+
+```
+npm install bootstrap
+```
+
+## Uso de GPIO BeagleBone Black con Python
+
+En este proyecto la GPIO se utiliza para poder encender el led enviando el mensaje de encendido desde nuestro WebSocket. El proyecto realiza esta tarea con ayuda de la libreria de "ADAFRUIT". Esta libreria es instalada directamente sobre nuestra placa de embebidos (BeagleBone Black) a traves de una conexión SSH.
+
+Puedes encontrar una guía para la instalación de la libreria aquí: https://learn.adafruit.com/setting-up-io-python-library-on-beaglebone-black/installation
+
+#### Diagrama de Pines BeagleBone Black
+
+<img src="IoT-WEB/Imagenes/beaglebone-black-pinout.jpg" alt="Pinout"/>
+
+#### Adafruit con Python 
+
+Para las pruebas hemos comentado las líneas correspondientes al manejo de GPIO en el archivo mqtt_client.py ya que la libreria no se instaló en la computadora en donde se realizó el código y son reconocidas como errores por el interprete.
+
+Una vez montado el programa en nuestra BeagleBone Black es necesario descomentar esas líneas para que funcione la GPIO. La importación de la libreria se hace de la siguiente manera:
+
+```
+import Adafruit_BBIO.GPIO as GPIO
+```
+
+Definimos el o los pines de la beaglebone a utilizar:
+
+```
+outPin  = "P9_12"
+GPIO.setup(outPin, GPIO.OUT)
+```
+
+Creamos las funciones para ecender o apagar el pin correspondiente de la GPIO
+
+```
+def encenderLed():
+    GPIO.output(outPin, GPIO.HIGH)
+
+def apagarLed():
+    GPIO.output(outPin, GPIO.LOW)
+    GPIO.cleanup()
+```

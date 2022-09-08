@@ -19,6 +19,8 @@ var LatitudArray = [];
 var longi = 0;
 var lati = 0;
 var coordenadas;
+var Gasolina = 0;
+let temperatura = 0;
 
 
 // called when the client connects
@@ -26,9 +28,9 @@ function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log("Conectado MQTT-WebSocket");
     client.subscribe("IoT/Velocidad");
-    client.subscribe("IoT/Long");
-    client.subscribe("IoT/Lat");
+    client.subscribe("IoT/Gasolina");
     client.subscribe("IoT/Coord");
+    client.subscribe("IoT/Temp");
 }
 
 // called when the client loses its connection
@@ -42,12 +44,11 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
     if (message.destinationName == 'IoT/Velocidad') {
         Velocidad = parseInt(message.payloadString);
-    }else if (message.destinationName == 'IoT/Long') {
-        LongitudArray.push(message.payloadString);
-        longi = message.payloadString;
-    }else if (message.destinationName == 'IoT/Lat') {
-        LatitudArray.push(message.payloadString);
-        lati = message.payloadString;
+    }else if (message.destinationName == 'IoT/Gasolina') {
+        Gasolina = parseInt(message.payloadString);
+    }else if (message.destinationName == 'IoT/Temp'){
+        temperatura = parseFloat(message.payloadString);
+        alertaTemperatura(temperatura);
     }else{
         coordenadas = message.payloadString;
         nuevoMarcador(coordenadas);
@@ -73,3 +74,15 @@ toggle.addEventListener('click', () => {
 
     client.send(message);
 })
+
+//Control de Alerta de temperata
+function alertaTemperatura(temperatura){
+   document.getElementById("Temperatura").textContent = temperatura;
+    if(temperatura > 30){
+        swal.fire({
+            icon: 'warning',
+            title: '¡ALERTA!',
+            text: 'La temperatura está elevada'
+        })
+    }
+}

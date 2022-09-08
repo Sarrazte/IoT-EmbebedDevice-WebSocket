@@ -24,29 +24,65 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqUlHzADhlgmGodUiDGlvSc0ZlPCkivUM&callback=initMap&libraries=&v=weekly"
       async
     ></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
-    <div>
-        <h1 id="velocidades">VELOCIDADES</h1>
+    <div class="container">
+      <a href="https://www.continental.com/es-mx/" class="navbar-brand">
+        <img src="Imagenes/continental.svg" alt="Continental Logo" width="150" height="140" class="d-inline-block align-top" pading />
+      </a>
+  </div>
+    <div class="container justify-content-md-center">
+      <div class="row justify-content-md-center">
+        <div class="col">
+          <div>
+            <h1 id="velocidades">VELOCIDADES</h1>
+          </div>
+         <div id="chartdiv"></div>
+        </div>
+        <div class="col justify">
+          <div>
+            <h1 id="gasolina">GASOLINA</h1>
+          </div>
+         <div id="chartdiv_dos"></div>
+        </div>
+      </div>
     </div>
-    <div id="chartdiv"></div>
-    <div>
-        <h1 id="ubicaciones">UBICACIONES</h1>
+
+    <div class="container justify-content-md-center">
+      <div class="row justify-content-md-center">
+        <div class="col justify-content-md-center">
+            <h1 id="ubicaciones">UBICACIONES</h1>
+            <div id="map"></div>
+              <a id="mencioniconcam" target="_blank" href="https://icons8.com/icon/24195/camioneta">Camioneta icon by Icons8</a>
+        </div>
+        <div class="col">
+          <div id="switchdiv">
+            <h1 id="led">CONTROL DE LED</h1>
+          <label class="toggle">
+            <span class="onoff">OFF</span>
+            <input type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="map"></div>
-    <div id="mencionicon">
-      <a id="mencioniconcam" target="_blank" href="https://icons8.com/icon/24195/camioneta">Camioneta icon by Icons8</a>
+
+    <div class="container justify-content-md-center">
+      <div class="row justify-content-md-center">
+        <div class="col">
+          <h1 id="temperatura">TEMPERATURA °C</h1>
+          <h3 id="Temperatura"></h3>
+        </div>
+      </div>
     </div>
-    <div id="switchdiv">
-      <h1 id="led">CONTROL DE LED</h1>
-    <label class="toggle">
-      <span class="onoff">OFF</span>
-      <input type="checkbox" />
-      <span class="slider round"></span>
-    </label>
-    </div>
+
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="js/iot-mqtt.js"></script>
     <script src="js/graficas.js"></script>    
     <script src="js/map.js"></script>
+    <!-- ALERTAS -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 </body>
 </html>
